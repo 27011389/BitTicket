@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainW
     connect(ui->actionExit, &QAction::triggered, this, &MainWindow::handleMenuExit);
     connect(ui->pb_remove, &QPushButton::clicked, this, &MainWindow::removeSelectedTicket);
     connect (ui->lst_tickets, &QListWidget::itemClicked, this, &MainWindow::handleTicketClick);
+    connect(ui->pb_modify, &QPushButton::clicked, this, &MainWindow::handleMenuTicketEdit);
 }
 
 MainWindow::~MainWindow()
@@ -39,10 +40,12 @@ MainWindow::~MainWindow()
 void MainWindow::handleMenuTicketNew()
 {
     Ticket* newTicket = nullptr;
+    this->hide();
     addticketdialog addTicketDialog(newTicket, nullptr);
 
     addTicketDialog.setModal(true);
     addTicketDialog.exec();
+    this->show();
 
     if (newTicket != nullptr)
     {
@@ -125,7 +128,6 @@ void MainWindow::handleMenuTicketEdit()
             editticketdialog editticketdialog(currentItem, nullptr);
             editticketdialog.exec();
 
-            //make sure UI is updated
             ui->lb_display_ticketnum->setText(currentItem->getTickId());
             ui->lb_display_Incidentcat->setText(currentItem->getIncidentCat());
             ui->lb_display_impact->setText(currentItem->getTickImpact());
@@ -151,7 +153,7 @@ void MainWindow::handleMenuExit()
 
 void MainWindow::handleSaveTickets()
 {
-    QFile outputFile("products.txt");
+    QFile outputFile("Tickets.txt");
 
     outputFile.open(QIODevice::WriteOnly | QIODevice::Text);
 
@@ -171,7 +173,7 @@ void MainWindow::handleSaveTickets()
         out << product->getTickRating()<<",";
         out << product->getTickName()<<",";
         out << product->getTickEmail()<<",";
-        out << product->getTickPhone();//new line?
+        out << product->getTickPhone()<<endl;
     }
 }
 
@@ -210,13 +212,6 @@ void MainWindow::handleLoadTickets()
     inputFile.close();
 
 }
-
-void MainWindow::handleTicketStats()
-{
- //placeholder
-}
-
-
 
 
 

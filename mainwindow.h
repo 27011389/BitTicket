@@ -3,9 +3,9 @@
 
 #include <QMainWindow>
 #include <QDialog>
-#include "ticket.h"
 #include <QListWidgetItem>
 #include <QVector>
+#include "ticket.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

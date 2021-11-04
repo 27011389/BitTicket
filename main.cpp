@@ -21,10 +21,8 @@ int main(int argc, char *argv[])
     }
     else
     {
-        msgBox.setText("Correct Credentials. You are welcome.");
-        msgBox.exec();
         m.show();
-        a.exec();      
+        a.exec();
     }
 
     return 0;

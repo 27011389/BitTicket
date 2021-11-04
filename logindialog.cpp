@@ -20,7 +20,6 @@ void LoginDialog::on_pushButton_clicked()
         if (username == "admin" && password == "1234")
         {
             this->hide();
-            QMessageBox::information(this, "Login", "Correct Username and Password");
             this->setResult(QDialog::Accepted);
         }
         else

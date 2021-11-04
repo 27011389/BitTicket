@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>961</width>
+    <width>958</width>
     <height>642</height>
    </rect>
   </property>
@@ -17,28 +17,15 @@
    <widget class="QWidget" name="layoutWidget_6">
     <property name="geometry">
      <rect>
-      <x>710</x>
-      <y>460</y>
-      <width>211</width>
-      <height>101</height>
+      <x>730</x>
+      <y>440</y>
+      <width>171</width>
+      <height>61</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_5">
      <item>
       <widget class="QLabel" name="lb_display_totalclosed">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="lb_display_totalsolved">
        <property name="styleSheet">
         <string notr="true">background-color: rgb(255, 255, 255);</string>
        </property>
@@ -278,13 +265,6 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="lb_symptoms">
-        <property name="text">
-         <string>Symptoms</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QLabel" name="lb_level_support">
         <property name="text">
          <string>Level of Support</string>
@@ -395,19 +375,6 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="lb_display_symptoms">
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);</string>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QLabel" name="lb_display_levelsupport">
         <property name="styleSheet">
          <string notr="true">background-color: rgb(255, 255, 255);</string>
@@ -426,63 +393,62 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>310</y>
-       <width>258</width>
-       <height>161</height>
+       <y>330</y>
+       <width>261</width>
+       <height>131</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_6">
       <item>
-       <widget class="QLabel" name="label_14">
-        <property name="text">
-         <string>Comments</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QListWidget" name="lst_display_ticketcomments">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::NoFrame</enum>
+       <widget class="QLabel" name="lb_display_symptoms">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 255, 255);</string>
         </property>
         <property name="frameShadow">
-         <enum>QFrame::Plain</enum>
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="text">
+         <string/>
         </property>
        </widget>
       </item>
      </layout>
     </widget>
+    <widget class="QLabel" name="label_14">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>310</y>
+       <width>81</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Symptoms</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="layoutWidget_5">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>460</y>
+      <x>640</x>
+      <y>440</y>
       <width>81</width>
-      <height>101</height>
+      <height>61</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_7">
      <item>
       <widget class="QLabel" name="lb_total_closed">
        <property name="text">
-        <string>Total Closed</string>
+        <string>Incident Status</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QLabel" name="lb_total_solved">
        <property name="text">
-        <string>Total Solved</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="lb_ongoing">
-       <property name="text">
-        <string>Ongoing</string>
+        <string>Ticket Status </string>
        </property>
       </widget>
      </item>
@@ -611,8 +577,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>961</width>
-     <height>20</height>
+     <width>958</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -622,6 +588,7 @@
     <addaction name="actionNew"/>
     <addaction name="actionLoad"/>
     <addaction name="actionSave"/>
+    <addaction name="actionModify_Ticket"/>
     <addaction name="actionExit"/>
    </widget>
    <addaction name="menuFile"/>
@@ -629,17 +596,17 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNew">
    <property name="text">
-    <string>New</string>
+    <string>New Ticket</string>
    </property>
   </action>
   <action name="actionLoad">
    <property name="text">
-    <string>Load</string>
+    <string>Load Ticekt</string>
    </property>
   </action>
   <action name="actionSave">
    <property name="text">
-    <string>Save</string>
+    <string>Save Ticket</string>
    </property>
   </action>
   <action name="actionExit">
@@ -647,7 +614,18 @@
     <string>Exit</string>
    </property>
   </action>
+  <action name="actionModify_Ticket">
+   <property name="text">
+    <string>Modify Ticket</string>
+   </property>
+  </action>
  </widget>
+ <tabstops>
+  <tabstop>lst_tickets</tabstop>
+  <tabstop>pb_remove</tabstop>
+  <tabstop>pb_modify</tabstop>
+  <tabstop>listWidget_3</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -16,7 +16,9 @@ addticketdialog::addticketdialog(Ticket*& newTicket, QWidget *parent) : QDialog(
     incident.push_back("Solved");
     incident.push_back("Not Solved");
     incident.push_back("Ongoing");
+    incident.push_back("");
     ui->comboBox_7->addItems(incident);
+    ui->comboBox_7->setCurrentIndex(3);
 
     //population of combo box for tags
     tag.push_back("Hardware");
@@ -27,20 +29,27 @@ addticketdialog::addticketdialog(Ticket*& newTicket, QWidget *parent) : QDialog(
     tag.push_back("Human Resources");
     tag.push_back("Networking");
     tag.push_back("Other");
+    tag.push_back("");
     //Custom Add needs to be added
     ui->comboBox_8->addItems(tag);
+    ui->comboBox_8->setCurrentIndex(8);
 
     //population of combo box for Impact
     impact.push_back("Low");
     impact.push_back("Medium");
     impact.push_back("High");
+    impact.push_back("");
     ui->comboBox_9->addItems(impact);
+    ui->comboBox_8->setCurrentIndex(3);
 
     //population of combo box for Urgency
     urgency.push_back("Low");
     urgency.push_back("Medium");
     urgency.push_back("High");
+    urgency.push_back("");
     ui->comboBox_10->addItems(urgency);
+    ui->comboBox_10->setCurrentIndex(3);
+
 
     //population of combo box for Priority
     priority.push_back("None");
@@ -48,13 +57,18 @@ addticketdialog::addticketdialog(Ticket*& newTicket, QWidget *parent) : QDialog(
     priority.push_back("Medium");
     priority.push_back("High");
     priority.push_back("Critical");
+    priority.push_back("");
     ui->comboBox_11->addItems(priority);
+    ui->comboBox_11->setCurrentIndex(5);
 
     //population of combo box for Level of support
     level.push_back("Tier 1");
     level.push_back("Tier 2");
     level.push_back("Tier 3");
+    level.push_back("");
     ui->comboBox_12->addItems(level);
+    ui->comboBox_12->setCurrentIndex(3);
+
 
 }
 

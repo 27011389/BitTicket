@@ -44,7 +44,7 @@
      <x>30</x>
      <y>60</y>
      <width>401</width>
-     <height>311</height>
+     <height>331</height>
     </rect>
    </property>
    <property name="title">
@@ -54,19 +54,12 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>30</y>
+      <y>40</y>
       <width>105</width>
       <height>261</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_3">
-     <item>
-      <widget class="QLabel" name="lb_ticket_num">
-       <property name="text">
-        <string>Ticket Number</string>
-       </property>
-      </widget>
-     </item>
      <item>
       <widget class="QLabel" name="lb_incident_cat">
        <property name="text">
@@ -121,16 +114,13 @@
    <widget class="QWidget" name="layoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>30</y>
+      <x>140</x>
+      <y>40</y>
       <width>241</width>
       <height>261</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QLineEdit" name="lineEdit"/>
-     </item>
      <item>
       <widget class="QComboBox" name="comboBox_5"/>
      </item>
@@ -153,6 +143,25 @@
       <widget class="QComboBox" name="comboBox"/>
      </item>
     </layout>
+   </widget>
+   <widget class="QLabel" name="lb_ticket_num">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>10</y>
+      <width>103</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Panel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
    </widget>
   </widget>
   <widget class="QLineEdit" name="lineEdit_4">
