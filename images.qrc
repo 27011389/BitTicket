@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/new/res">
+        <file>images/BitTicketLogo.png</file>
+        <file>images/BitTicketLogoback.png</file>
+    </qresource>
+</RCC>

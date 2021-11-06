@@ -20,9 +20,27 @@ void LoginDialog::on_pushButton_clicked()
         if (username == "admin" && password == "1234")
         {
             this->hide();
-            QMessageBox::information(this, "Login", "Correct Username and Password");
             this->setResult(QDialog::Accepted);
         }
+
+        else if (username == "dev" && password == "1234")
+        {
+            this->hide();
+            this->setResult(QDialog::Accepted);
+        }
+
+        else if (username == "Admin" && password == "1234")
+        {
+            this->hide();
+            this->setResult(QDialog::Accepted);
+        }
+
+        else if (username == "ADMIN" && password == "1234")
+        {
+            this->hide();
+            this->setResult(QDialog::Accepted);
+        }
+
         else
         {
             QMessageBox::warning(this, "Login", "Incorrect Username and Password - Try Again");

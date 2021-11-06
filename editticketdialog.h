@@ -33,6 +33,9 @@ private:
     QStringList name;
     QStringList email;
     QStringList phone;
+    QStringList agent;
+//    QStringList status;
+//    QStringList incstatus;
 
 };
 

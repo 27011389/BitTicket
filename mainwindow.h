@@ -3,9 +3,10 @@
 
 #include <QMainWindow>
 #include <QDialog>
-#include "ticket.h"
 #include <QListWidgetItem>
 #include <QVector>
+#include <QPropertyAnimation>
+#include "ticket.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -27,11 +28,18 @@ public:
     void handleSaveTickets();
     void handleLoadTickets();
     void handleTicketStats();
+    void searchProduct();
+    void handleThemeSpyBot();
+    void handleThemeGravira();
+private slots:
+    void on_actionAbout_Qt_triggered();
+    void on_actionAbout_triggered();
 
 private:
     Ui::MainWindow *ui;
     QVector<Ticket*> ticketList;
     QWidget * QMainWindow;
+    QPropertyAnimation *animation;
 
 };
 #endif // MAINWINDOW_H
