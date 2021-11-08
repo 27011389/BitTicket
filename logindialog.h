@@ -2,6 +2,8 @@
 #define LOGINDIALOG_H
 
 #include <QDialog>
+#include <QPropertyAnimation>
+
 
 namespace Ui {
 class LoginDialog;
@@ -20,6 +22,7 @@ private slots:
 
 private:
     Ui::LoginDialog *ui;
+    QPropertyAnimation *animation;
 };
 
 #endif // LOGINDIALOG_H

@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include "addticketdialog.h"
 #include "editticketdialog.h"
-#include <QGraphicsOpacityEffect>
+//#include <QGraphicsOpacityEffect>
 #include <QMessageBox>
 
 #include <QFile>
@@ -22,6 +22,18 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainW
     connect(ui->pb_remove, &QPushButton::clicked, this, &MainWindow::removeSelectedTicket);
     connect (ui->lst_tickets, &QListWidget::itemClicked, this, &MainWindow::handleTicketClick);
     connect(ui->pb_modify, &QPushButton::clicked, this, &MainWindow::handleMenuTicketEdit);
+
+    connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::searchProduct);
+
+    //animation = new QPropertyAnimation(ui->label, "geometry");
+    // animation->setDuration(10000);
+    // animation->setStartValue(ui->label->geometry());
+    // animation->setEndValue(QRect(0,100,1000,100));
+    // animation->start();
+    // animation->bindableCurrentLoop();
+
+    connect(ui->actionSpyBot, &QAction::triggered,this, &MainWindow::handleThemeSpyBot);
+    connect(ui->actionGravira, &QAction::triggered,this, &MainWindow::handleThemeGravira);
 }
 
 MainWindow::~MainWindow()
@@ -64,11 +76,12 @@ void MainWindow::removeSelectedTicket()
         //remove from vector
         Ticket* theItem = ticketList.at(index);
         delete theItem;
-       ticketList.removeAt(index);
+        ticketList.removeAt(index);
 
         //remove from list widget in the UI
         delete ui->lst_tickets->currentItem();
     }
+
     //ticket details set to ""
     ui->lb_display_ticketnum->setText("");
     ui->lb_display_Incidentcat->setText("");
@@ -80,12 +93,16 @@ void MainWindow::removeSelectedTicket()
     ui->lb_display_timestamp->setText("");
     ui->lb_display_urgency->setText("");
     ui->lb_display_rating->setText("");
+    ui->lb_display_Agent->setText("");
+    ui->lblImage->setText("");
 
     //User details set to ""
     ui->lb_display_name->setText("");
     ui->lb_display_phone->setText("");
     ui->lb_display_email->setText("");
 
+    QPixmap pixmap("./images/none.png");
+    ui->lblImage->setPixmap(pixmap);
 
 } //end removeSelectedProduct
 
@@ -110,6 +127,14 @@ void MainWindow::handleTicketClick()
         ui->lb_display_name->setText(theTicket->getTickName());
         ui->lb_display_phone->setText(theTicket->getTickPhone());
         ui->lb_display_email->setText(theTicket->getTickEmail());
+        ui->lb_display_Agent->setText(theTicket->getAgent());
+
+        ui->lb_display_Tickstatus->setText(theTicket->getTickStatus());
+        ui->lb_display_Incstatus->setText(theTicket->getIncStatus());
+
+        QPixmap pixmap(theTicket->getImageFilePath());
+        ui->lblImage->setPixmap(pixmap);
+        ui->lblImage->setScaledContents(true);
 
      } //end if
 }// end handle item click
@@ -140,6 +165,16 @@ void MainWindow::handleMenuTicketEdit()
             ui->lb_display_name->setText(currentItem->getTickName());
             ui->lb_display_phone->setText(currentItem->getTickPhone());
             ui->lb_display_email->setText(currentItem->getTickEmail());
+            ui->lb_display_Agent->setText(currentItem->getAgent());
+
+
+            ui->lb_display_Tickstatus->setText(currentItem->getTickStatus());
+            ui->lb_display_Incstatus->setText(currentItem->getIncStatus());
+
+
+            QPixmap pixmap(currentItem->getImageFilePath());
+            ui->lblImage->setPixmap(pixmap);
+            ui->lblImage->setScaledContents(true);
 
         }//end inner if
     }//end if
@@ -173,7 +208,12 @@ void MainWindow::handleSaveTickets()
         out << product->getTickRating()<<",";
         out << product->getTickName()<<",";
         out << product->getTickEmail()<<",";
-        out << product->getTickPhone()<<endl;
+        out << product->getTickPhone()<<",";
+        out <<product->getAgent()<<",";
+        out <<product->getTickStatus()<<",";
+        out <<product->getIncStatus()<<",";
+
+        out <<product->getImageFilePath()<<endl;
     }
 }
 
@@ -203,7 +243,7 @@ void MainWindow::handleLoadTickets()
             ui->lst_tickets->addItem(info.at(0));
 
             //handle vector
-            Ticket* product = new Ticket(info.at(0), info.at(1),info.at(2), info.at(3),info.at(4), info.at(5),info.at(6), info.at(7),info.at(8), info.at(9), info.at(10),info.at(11), info.at(12));
+            Ticket* product = new Ticket(info.at(0), info.at(1),info.at(2), info.at(3),info.at(4), info.at(5),info.at(6), info.at(7),info.at(8), info.at(9), info.at(10),info.at(11), info.at(12), info.at(13), info.at(14), info.at(15), info.at(16));
             ticketList.push_back(product);
 
         } //end while
@@ -213,5 +253,80 @@ void MainWindow::handleLoadTickets()
 
 }
 
+void MainWindow::searchProduct()
+{
+    QString search=ui->lineEdit->text();
+    if (search != "")
+    {
+        for(int i = 0; i < ui->lst_tickets->count(); i++)
+        {
+            QListWidgetItem* item = ui->lst_tickets->item(i);
+            item->setBackground(Qt::white);
+        }
+        QList<QListWidgetItem *> list = ui->lst_tickets->findItems(search, Qt::MatchContains);
+        //for ( QListWidgetItem *item : list)
+        for (int i=0; i<list.count(); i++)
+        {
+            QListWidgetItem* item = list.at(i);
+            item->setBackground(Qt::red);
+        }
+    }
+    else
+    {
+        for(int i = 0; i < ui->lst_tickets->count(); i++)
+        {
+            QListWidgetItem* item = ui->lst_tickets->item(i);
+            item->setBackground(Qt::white);
+        }
+    }
+}
 
+void MainWindow::handleThemeSpyBot()
+{
 
+    //open qss file
+    QFile file("D:/Users/270113892/Desktop/BitTicketMain/Darkmode.qss");
+    file.open(QFile::ReadOnly);
+    QString styleSheet { QLatin1String(file.readAll()) };
+
+    //setup stylesheet
+    setStyleSheet(styleSheet);
+
+    //run
+    show();
+
+}
+
+void MainWindow::handleThemeGravira()
+{
+    //open qss file
+    QFile file("D:/Users/270113892/Desktop/BitTicketMain/LightMode.qss");
+    file.open(QFile::ReadOnly);
+    QString styleSheet { QLatin1String(file.readAll()) };
+
+    //setup stylesheet
+    setStyleSheet(styleSheet);
+
+    //run
+    show();
+
+}
+
+void MainWindow::on_actionAbout_Qt_triggered()
+{
+    QMessageBox::aboutQt(this);
+}
+
+void MainWindow::on_actionAbout_triggered()
+{
+    QMessageBox::about(this, "About",
+                       "This is the BitTicket System \n"
+                       "developed for the CS106 group assignment.\n\n"
+                       "Tools & Technologies used:\n"
+                       "C++\n"
+                       "Qt\n\n"
+                       "Developers:\n"
+                       "Alex Hughes(024)\n"
+                       "Mark Pepere (002)");
+
+}

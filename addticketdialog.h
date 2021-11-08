@@ -17,6 +17,7 @@ public:
     ~addticketdialog();
 
     void confirmAdd();
+    void loadItemImage();
 
 private:
     Ui::addticketdialog *ui;
@@ -33,7 +34,10 @@ private:
     QStringList name;
     QStringList email;
     QStringList phone;
+    QStringList status;
+    QStringList incstatus;
 
+    QString imageFilePath;
 };
 
 #endif // ADDTICKETDIALOG_H

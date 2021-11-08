@@ -8,27 +8,19 @@
 editticketdialog::editticketdialog(Ticket* editTicket,QWidget *parent) : QDialog(parent), ui(new Ui::editticketdialog)
 {
     ui->setupUi(this);
+
     //population of combo box for Incident Category
-    incident.push_back("Solved");
-    incident.push_back("Not Solved");
-    incident.push_back("Ongoing");
+    incident.push_back("Hardware");
+    incident.push_back("Software");
+    incident.push_back("Account Management");
+    incident.push_back("Applications");
+    incident.push_back("Finance");
+    incident.push_back("Human Resources");
+    incident.push_back("Networking");
+    incident.push_back("Other");
     incident.push_back("");
     ui->comboBox_5->addItems(incident);
-    ui->comboBox_5->setCurrentIndex(3);
-
-    //population of combo box for tags
-    tag.push_back("Hardware");
-    tag.push_back("Software");
-    tag.push_back("Account Management");
-    tag.push_back("Applications");
-    tag.push_back("Finance");
-    tag.push_back("Human Resources");
-    tag.push_back("Networking");
-    tag.push_back("Other");
-    tag.push_back("");
-    //Custom Add needs to be added
-    ui->comboBox_4->addItems(tag);
-    ui->comboBox_4->setCurrentIndex(8);
+    ui->comboBox_5->setCurrentIndex(8);
 
     //population of combo box for Impact
     impact.push_back("Low");
@@ -64,30 +56,49 @@ editticketdialog::editticketdialog(Ticket* editTicket,QWidget *parent) : QDialog
     ui->comboBox->addItems(level);
     ui->comboBox_3->setCurrentIndex(3);
 
+    //Ticket status
+    status.push_back("Closed");
+    status.push_back("Re-opened");
+    status.push_back("");
+    ui->comboBox_TS1->addItems(status);
+    ui->comboBox_TS1->setCurrentIndex(2);
+
+    //Incident Status
+    incstatus.push_back("Solved");
+    incstatus.push_back("Not Solved");
+    incstatus.push_back("Ongoing");
+    incstatus.push_back("");
+    ui->comboBox_IS1->addItems(incstatus);
+    ui->comboBox_IS1->setCurrentIndex(3);
 
     this->editTicket = editTicket;
 
     if (editTicket != nullptr)
     {
         ui->lb_ticket_num->setText(editTicket->getTickId());
-
-        ui->comboBox_5->setCurrentText(editTicket->getTickId());
-        ui->comboBox_4->setCurrentText(editTicket->getTickTag());
+        ui->comboBox_5->setCurrentText(editTicket->getIncidentCat());
+        ui->lineEdit_Tag->setText(editTicket->getTickTag());
         ui->comboBox_6->setCurrentText(editTicket->getTickImpact());
         ui->comboBox_3->setCurrentText(editTicket->getTickUrgency());
         ui->comboBox_2->setCurrentText(editTicket->getTickPriority());
         ui->comboBox->setCurrentText(editTicket->getTickLevel());
-        //ui->dateTimeEdit->setDateTime(editTicket->getTickTime());
         ui->lineEdit_4->setText(editTicket->getTickSymptoms());
-        ui-> txtRating->setText(editTicket->getTickRating());
+        ui->txtRating->setText(editTicket->getTickRating());
         ui->lineEdit_10->setText(editTicket->getTickName());
         ui->lineEdit_11->setText(editTicket->getTickPhone());
         ui->lineEdit_12->setText(editTicket->getTickEmail());
+        ui->lineEditAgent->setText(editTicket->getAgent());
+        ui->comboBox_TS1->setCurrentText(editTicket->getTickStatus());
+        ui->comboBox_IS1->setCurrentText(editTicket->getIncStatus());
 
+        QPixmap pixmap(editTicket->getImageFilePath());
+        ui->lblImage->setPixmap(pixmap);
+        ui->lblImage->setScaledContents(true);
+        imageFilePath = editTicket->getImageFilePath();
     }
     //connection
     connect(ui->pushButton, &QPushButton::clicked,this, &editticketdialog::confirmUpdate);
-
+    connect(ui->pushButton_2, &QPushButton::clicked,this, &editticketdialog::loadItemImage);
 }
 
 editticketdialog::~editticketdialog()
@@ -101,20 +112,24 @@ void editticketdialog::confirmUpdate()
     //QString id = ui->lineEdit->text();
 
     QString incident = ui->comboBox_5->currentText();
-    QString tag = ui->comboBox_4->currentText();;
-    QString impact = ui->comboBox_6->currentText();;
-    QString urgency = ui->comboBox_3->currentText();;
-    QString priority = ui->comboBox_2->currentText();;
-    //QString time = ui->dateTimeEdit->text();
+    QString tag = ui->lineEdit_Tag->text();
+    QString impact = ui->comboBox_6->currentText();
+    QString urgency = ui->comboBox_3->currentText();
+    QString priority = ui->comboBox_2->currentText();
     QString symptoms = ui->lineEdit_4->text();
     QString level = ui->comboBox->currentText();
     QString rating  = ui->txtRating->text();
     QString name = ui->lineEdit_10->text();
     QString email = ui->lineEdit_11->text();
     QString phone  = ui->lineEdit_12->text();
+    QString agent = ui->lineEditAgent->text();
+    QString status = ui->comboBox_TS1->currentText();
+    QString incstatus = ui->comboBox_IS1->currentText();
+
+    //QString imageFilePath = ui->lblImage->text();
 
     //checking conditions
-    if (!(symptoms.isEmpty()))
+    if (!(incident.isEmpty()))
     {
 
         editTicket->setIncidentCat(incident);
@@ -128,15 +143,39 @@ void editticketdialog::confirmUpdate()
         editTicket->setTickName(name);
         editTicket->setTickEmail(email);
         editTicket->setTickPhone(phone);
+        editTicket->setAgent(agent);
+        editTicket->setTickStatus(status);
+        editTicket->setIncStatus(incstatus);
+        editTicket->setImageFilePath(imageFilePath);
 
         this->close();
     }
     else
     {
-        //error message for the checking conditions are not met
+
         QString message(tr("All information is required, Please complete the form to proceed."));
         QMessageBox::information(this, tr("Add Ticket"), message); //passing and closing
-        //editTicket = new Ticket (id, incident, tag, impact, urgency, priority, time, symptoms, level, rating, name, email, phone);
 
     }
 }
+void editticketdialog::loadItemImage()
+{
+    QString filename;
+
+    filename = QFileDialog::getOpenFileName(this,"Open Image", "./", "Image Files (*.png *.jpg)");
+
+    if (filename != "")
+    {
+        int lastSlash = filename.lastIndexOf("/");
+        QString shortName = filename.right(filename.size() - lastSlash - 1);
+
+        QFile::copy(filename, "./images/" + shortName);
+        QPixmap pixmap("./images/" + shortName);
+
+        ui->lblImage->setPixmap(pixmap);
+        ui->lblImage->setScaledContents(true);
+
+        //update internal data
+        imageFilePath = "./images/" + shortName;
+    } //end if
+}//end loadItemImage

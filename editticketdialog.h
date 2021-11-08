@@ -17,6 +17,7 @@ public:
     ~editticketdialog();
 
     void confirmUpdate();
+    void loadItemImage();
 
 private:
     Ui::editticketdialog *ui;
@@ -33,7 +34,11 @@ private:
     QStringList name;
     QStringList email;
     QStringList phone;
+    QStringList agent;
+    QStringList status;
+    QStringList incstatus;
 
+    QString imageFilePath;
 };
 
 #endif // EDITTICKETDIALOG_H
