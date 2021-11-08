@@ -1,7 +1,7 @@
 #include "ticket.h"
 
 
-Ticket::Ticket( QString id, QString incident, QString tag, QString impact, QString urgency, QString priority, QString time, QString symptoms, QString level, QString rating, QString name, QString email, QString phone)
+Ticket::Ticket( QString id, QString incident, QString tag, QString impact, QString urgency, QString priority, QString time, QString symptoms, QString level, QString rating, QString name, QString email, QString phone, QString agent,QString status, QString incstatus , QString ImageFilePath)
 {
     this->id = id;
     this->incident = incident;
@@ -16,6 +16,11 @@ Ticket::Ticket( QString id, QString incident, QString tag, QString impact, QStri
     this->name = name;
     this->email = email;
     this->phone = phone;
+    this->agent = agent;
+    this->status = status;
+    this->incstatus = incstatus;
+    this->ImageFilePath = ImageFilePath;
+
 }
 
 void Ticket::setTickId(QString id)
@@ -147,3 +152,46 @@ QString Ticket::getTickPhone() const
     return phone;
 }
 
+void Ticket::setAgent(QString agent)
+{
+    this->agent = agent;
+}
+
+QString Ticket::getAgent() const
+{
+    return agent;
+}
+
+
+
+
+void Ticket::setTickStatus (QString status)
+{
+    this->status = status;
+}
+
+QString Ticket::getTickStatus() const
+{
+    return status;
+}
+
+void Ticket::setIncStatus(QString incstatus)
+{
+    this->incstatus =incstatus;
+}
+
+QString Ticket::getIncStatus() const
+{
+    return incstatus;
+}
+
+
+void Ticket::setImageFilePath(QString ImageFilePath)
+{
+    this->ImageFilePath = ImageFilePath;
+}
+
+QString Ticket::getImageFilePath() const
+{
+    return ImageFilePath;
+}

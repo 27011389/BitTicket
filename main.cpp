@@ -2,11 +2,19 @@
 #include <QMessageBox>
 #include <QApplication>
 #include "logindialog.h"
+#include <QFile>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow m;
+
+    QFile file("D:/Users/270113892/Desktop/BitTicketMain/LightMode.qss");
+    file.open(QFile::ReadOnly);
+    QString styleSheet { QLatin1String(file.readAll()) };
+    a.setStyleSheet(styleSheet);
+    m.show();
+
     m.hide();
 
     QMessageBox msgBox;
@@ -21,10 +29,8 @@ int main(int argc, char *argv[])
     }
     else
     {
-        msgBox.setText("Correct Credentials. You are welcome.");
-        msgBox.exec();
         m.show();
-        a.exec();      
+        a.exec();
     }
 
     return 0;

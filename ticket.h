@@ -19,9 +19,13 @@ private:
     QString name;
     QString email;
     QString phone;
+    QString agent;
+    QString status;
+    QString incstatus;
+    QString ImageFilePath;
 
 public:
-    Ticket( QString id, QString incident, QString tag, QString impact, QString urgency, QString priority, QString time, QString symptoms, QString level, QString rating, QString name, QString email, QString phone);
+    Ticket( QString id, QString incident, QString tag, QString impact, QString urgency, QString priority, QString time, QString symptoms, QString level, QString rating, QString name, QString email, QString phone, QString agent, QString status, QString Incstatus, QString ImageFilePath);
 
     void setTickId(QString id);
     void setIncidentCat(QString incident);
@@ -36,6 +40,10 @@ public:
     void setTickName(QString name);
     void setTickEmail(QString email);
     void setTickPhone(QString phone);
+    void setAgent(QString agent);
+    void setTickStatus (QString status);
+    void setIncStatus(QString incstatus);
+    void setImageFilePath(QString incstatus);
 
     QString getTickId();
     QString getIncidentCat() const;
@@ -50,6 +58,10 @@ public:
     QString getTickName() const;
     QString getTickEmail() const;
     QString getTickPhone() const;
+    QString getAgent() const;
+    QString getTickStatus() const;
+    QString getIncStatus() const;
+    QString getImageFilePath() const;
 
 };
 
