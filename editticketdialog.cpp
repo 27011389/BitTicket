@@ -4,6 +4,8 @@
 #include <QDir>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QListView>
+#include <QTextStream>
 
 editticketdialog::editticketdialog(Ticket* editTicket,QWidget *parent) : QDialog(parent), ui(new Ui::editticketdialog)
 {
@@ -21,6 +23,7 @@ editticketdialog::editticketdialog(Ticket* editTicket,QWidget *parent) : QDialog
     incident.push_back("");
     ui->comboBox_5->addItems(incident);
     ui->comboBox_5->setCurrentIndex(8);
+    qobject_cast<QListView *>(ui->comboBox_5->view())->setRowHidden(8, true);
 
     //population of combo box for Impact
     impact.push_back("Low");
@@ -29,6 +32,7 @@ editticketdialog::editticketdialog(Ticket* editTicket,QWidget *parent) : QDialog
     impact.push_back("");
     ui->comboBox_6->addItems(impact);
     ui->comboBox_6->setCurrentIndex(3);
+    qobject_cast<QListView *>(ui->comboBox_6->view())->setRowHidden(3, true);
 
     //population of combo box for Urgency
     urgency.push_back("Low");
@@ -37,6 +41,7 @@ editticketdialog::editticketdialog(Ticket* editTicket,QWidget *parent) : QDialog
     urgency.push_back("");
     ui->comboBox_3->addItems(urgency);
     ui->comboBox_3->setCurrentIndex(3);
+    qobject_cast<QListView *>(ui->comboBox_3->view())->setRowHidden(3, true);
 
     //population of combo box for Priority
     priority.push_back("None");
@@ -46,7 +51,8 @@ editticketdialog::editticketdialog(Ticket* editTicket,QWidget *parent) : QDialog
     priority.push_back("Critical");
     priority.push_back("");
     ui->comboBox_2->addItems(priority);
-    ui->comboBox_3->setCurrentIndex(5);
+    ui->comboBox_2->setCurrentIndex(5);
+    qobject_cast<QListView *>(ui->comboBox_2->view())->setRowHidden(3, true);
 
     //population of combo box for Level of support
     level.push_back("Tier 1");
@@ -54,7 +60,9 @@ editticketdialog::editticketdialog(Ticket* editTicket,QWidget *parent) : QDialog
     level.push_back("Tier 3");
     level.push_back("");
     ui->comboBox->addItems(level);
-    ui->comboBox_3->setCurrentIndex(3);
+    ui->comboBox->setCurrentIndex(3);
+    qobject_cast<QListView *>(ui->comboBox->view())->setRowHidden(3, true);
+
 
     //Ticket status
     status.push_back("Closed");
@@ -62,6 +70,7 @@ editticketdialog::editticketdialog(Ticket* editTicket,QWidget *parent) : QDialog
     status.push_back("");
     ui->comboBox_TS1->addItems(status);
     ui->comboBox_TS1->setCurrentIndex(2);
+     qobject_cast<QListView *>(ui->comboBox_TS1->view())->setRowHidden(2, true);
 
     //Incident Status
     incstatus.push_back("Solved");
@@ -70,6 +79,7 @@ editticketdialog::editticketdialog(Ticket* editTicket,QWidget *parent) : QDialog
     incstatus.push_back("");
     ui->comboBox_IS1->addItems(incstatus);
     ui->comboBox_IS1->setCurrentIndex(3);
+    qobject_cast<QListView *>(ui->comboBox_IS1->view())->setRowHidden(3, true);
 
     this->editTicket = editTicket;
 
@@ -109,8 +119,6 @@ editticketdialog::~editticketdialog()
 void editticketdialog::confirmUpdate()
 {
     //connection
-    //QString id = ui->lineEdit->text();
-
     QString incident = ui->comboBox_5->currentText();
     QString tag = ui->lineEdit_Tag->text();
     QString impact = ui->comboBox_6->currentText();
@@ -126,12 +134,9 @@ void editticketdialog::confirmUpdate()
     QString status = ui->comboBox_TS1->currentText();
     QString incstatus = ui->comboBox_IS1->currentText();
 
-    //QString imageFilePath = ui->lblImage->text();
-
     //checking conditions
     if (!(incident.isEmpty()))
     {
-
         editTicket->setIncidentCat(incident);
         editTicket->setTickTag(tag);
         editTicket->setTickImpact(impact);
@@ -147,9 +152,9 @@ void editticketdialog::confirmUpdate()
         editTicket->setTickStatus(status);
         editTicket->setIncStatus(incstatus);
         editTicket->setImageFilePath(imageFilePath);
-
         this->close();
     }
+
     else
     {
 

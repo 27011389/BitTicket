@@ -36,7 +36,7 @@ private:
     QStringList phone;
     QStringList status;
     QStringList incstatus;
-
+    QStringList rating;
     QString imageFilePath;
 };
 

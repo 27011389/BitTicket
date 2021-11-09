@@ -6,7 +6,6 @@
 LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent), ui(new Ui::LoginDialog)
 {
     ui->setupUi(this);
-
     animation = new QPropertyAnimation(ui->label_4, "geometry");
     animation->setDuration(1200);
     animation->setStartValue(ui->label_4->geometry());
