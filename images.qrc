@@ -2,5 +2,8 @@
     <qresource prefix="/new/res">
         <file>images/BitTicketLogo.png</file>
         <file>images/BitTicketLogoback.png</file>
+        <file>images/Darkmode.qss</file>
+        <file>images/Lightmode.qss</file>
     </qresource>
+    <qresource prefix="/new/ss"/>
 </RCC>

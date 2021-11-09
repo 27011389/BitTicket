@@ -1,7 +1,8 @@
 #include "ticket.h"
 
-
-Ticket::Ticket( QString id, QString incident, QString tag, QString impact, QString urgency, QString priority, QString time, QString symptoms, QString level, QString rating, QString name, QString email, QString phone, QString agent,QString status, QString incstatus , QString ImageFilePath)
+Ticket::Ticket( QString id, QString incident, QString tag, QString impact, QString urgency,
+                QString priority, QString time, QString symptoms, QString level, QString rating,
+                QString name, QString email, QString phone, QString agent,QString status, QString incstatus , QString ImageFilePath)
 {
     this->id = id;
     this->incident = incident;
@@ -162,9 +163,6 @@ QString Ticket::getAgent() const
     return agent;
 }
 
-
-
-
 void Ticket::setTickStatus (QString status)
 {
     this->status = status;
@@ -184,7 +182,6 @@ QString Ticket::getIncStatus() const
 {
     return incstatus;
 }
-
 
 void Ticket::setImageFilePath(QString ImageFilePath)
 {

@@ -25,7 +25,10 @@ private:
     QString ImageFilePath;
 
 public:
-    Ticket( QString id, QString incident, QString tag, QString impact, QString urgency, QString priority, QString time, QString symptoms, QString level, QString rating, QString name, QString email, QString phone, QString agent, QString status, QString Incstatus, QString ImageFilePath);
+    Ticket( QString id, QString incident, QString tag, QString impact,
+            QString urgency, QString priority, QString time, QString symptoms,
+            QString level, QString rating, QString name, QString email,
+            QString phone, QString agent, QString status, QString Incstatus, QString ImageFilePath);
 
     void setTickId(QString id);
     void setIncidentCat(QString incident);
@@ -36,7 +39,7 @@ public:
     void setTickTime(QString time);
     void setTickSymptoms(QString symptoms);
     void setTickLevel(QString level);
-    void setTickRating(QString rating);
+    void setTickRating(QString rating =0);
     void setTickName(QString name);
     void setTickEmail(QString email);
     void setTickPhone(QString phone);

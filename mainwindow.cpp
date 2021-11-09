@@ -1,16 +1,15 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "addticketdialog.h"
-#include "editticketdialog.h"
-//#include <QGraphicsOpacityEffect>
 #include <QMessageBox>
-
 #include <QFile>
 #include <QTextStream>
 #include <QString>
 #include <QStringList>
 #include <QListWidget>
 #include <QAction>
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include "addticketdialog.h"
+#include "editticketdialog.h"
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -20,20 +19,47 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainW
     connect(ui->actionSave, &QAction::triggered, this, &MainWindow::handleSaveTickets);
     connect(ui->actionExit, &QAction::triggered, this, &MainWindow::handleMenuExit);
     connect(ui->pb_remove, &QPushButton::clicked, this, &MainWindow::removeSelectedTicket);
-    connect (ui->lst_tickets, &QListWidget::itemClicked, this, &MainWindow::handleTicketClick);
+    connect(ui->lst_tickets, &QListWidget::itemClicked, this, &MainWindow::handleTicketClick);
     connect(ui->pb_modify, &QPushButton::clicked, this, &MainWindow::handleMenuTicketEdit);
-
     connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::searchProduct);
+    connect(ui->actionSpyBot, &QAction::triggered,this, &MainWindow::handleThemeDarkmode);
+    connect(ui->actionGravira, &QAction::triggered,this, &MainWindow::handleThemeLightmode);
 
-    //animation = new QPropertyAnimation(ui->label, "geometry");
-    // animation->setDuration(10000);
-    // animation->setStartValue(ui->label->geometry());
-    // animation->setEndValue(QRect(0,100,1000,100));
-    // animation->start();
-    // animation->bindableCurrentLoop();
+    QFile inputFile("Tickets.txt");
+    inputFile.open(QIODevice::ReadOnly | QIODevice::Text);
 
-    connect(ui->actionSpyBot, &QAction::triggered,this, &MainWindow::handleThemeSpyBot);
-    connect(ui->actionGravira, &QAction::triggered,this, &MainWindow::handleThemeGravira);
+    QTextStream in(&inputFile);
+
+    //clear current list and vector
+    for (Ticket* temp:ticketList)
+        {
+            delete temp;
+        }
+
+    ticketList.clear(); //clear data model
+    ui->lst_tickets->clear(); // view / ui
+
+    while(!in.atEnd())
+        {
+            QString line = in.readLine();
+            QStringList info = line.split(",");
+
+            //handle list of products ui
+            ui->lst_tickets->addItem(info.at(0));
+
+            //handle vector
+            Ticket* product = new Ticket(info.at(0), info.at(1),info.at(2), info.at(3),info.at(4),
+                                         info.at(5),info.at(6), info.at(7),info.at(8), info.at(9),
+                                         info.at(10),info.at(11), info.at(12), info.at(13),
+                                         info.at(14), info.at(15), info.at(16));
+
+            ticketList.push_back(product);
+
+        } //end while
+
+    in.flush();
+    inputFile.close();
+
 }
 
 MainWindow::~MainWindow()
@@ -45,7 +71,6 @@ MainWindow::~MainWindow()
     }
 
     ticketList.clear();
-
     delete ui;
 }
 
@@ -54,7 +79,6 @@ void MainWindow::handleMenuTicketNew()
     Ticket* newTicket = nullptr;
     this->hide();
     addticketdialog addTicketDialog(newTicket, nullptr);
-
     addTicketDialog.setModal(true);
     addTicketDialog.exec();
     this->show();
@@ -65,7 +89,6 @@ void MainWindow::handleMenuTicketNew()
         ui->lst_tickets->addItem(newTicket->getTickId());
     }
 } //end handleMenuItemNew
-
 
 void MainWindow::removeSelectedTicket()
 {
@@ -112,7 +135,6 @@ void MainWindow::handleTicketClick()
 
     if (index != -1)
     {
-
         Ticket* theTicket = ticketList.at(index);
         ui->lb_display_ticketnum->setText(theTicket->getTickId());
         ui->lb_display_Incidentcat->setText(theTicket->getIncidentCat());
@@ -128,17 +150,14 @@ void MainWindow::handleTicketClick()
         ui->lb_display_phone->setText(theTicket->getTickPhone());
         ui->lb_display_email->setText(theTicket->getTickEmail());
         ui->lb_display_Agent->setText(theTicket->getAgent());
-
         ui->lb_display_Tickstatus->setText(theTicket->getTickStatus());
         ui->lb_display_Incstatus->setText(theTicket->getIncStatus());
-
         QPixmap pixmap(theTicket->getImageFilePath());
         ui->lblImage->setPixmap(pixmap);
         ui->lblImage->setScaledContents(true);
 
      } //end if
 }// end handle item click
-
 
 void MainWindow::handleMenuTicketEdit()
 {
@@ -166,20 +185,16 @@ void MainWindow::handleMenuTicketEdit()
             ui->lb_display_phone->setText(currentItem->getTickPhone());
             ui->lb_display_email->setText(currentItem->getTickEmail());
             ui->lb_display_Agent->setText(currentItem->getAgent());
-
-
             ui->lb_display_Tickstatus->setText(currentItem->getTickStatus());
             ui->lb_display_Incstatus->setText(currentItem->getIncStatus());
-
-
             QPixmap pixmap(currentItem->getImageFilePath());
             ui->lblImage->setPixmap(pixmap);
             ui->lblImage->setScaledContents(true);
 
-        }//end inner if
-    }//end if
+        } //end inner if
+    } //end if
 
-}//end handleMenuItemEdit
+} //end handleMenuItemEdit
 
 void MainWindow::handleMenuExit()
 {
@@ -189,9 +204,7 @@ void MainWindow::handleMenuExit()
 void MainWindow::handleSaveTickets()
 {
     QFile outputFile("Tickets.txt");
-
     outputFile.open(QIODevice::WriteOnly | QIODevice::Text);
-
     QTextStream out(&outputFile);
 
     for(Ticket* product:ticketList)
@@ -209,11 +222,10 @@ void MainWindow::handleSaveTickets()
         out << product->getTickName()<<",";
         out << product->getTickEmail()<<",";
         out << product->getTickPhone()<<",";
-        out <<product->getAgent()<<",";
-        out <<product->getTickStatus()<<",";
-        out <<product->getIncStatus()<<",";
-
-        out <<product->getImageFilePath()<<endl;
+        out << product->getAgent()<<",";
+        out << product->getTickStatus()<<",";
+        out << product->getIncStatus()<<",";
+        out << product->getImageFilePath()<<"\n";
     }
 }
 
@@ -243,7 +255,11 @@ void MainWindow::handleLoadTickets()
             ui->lst_tickets->addItem(info.at(0));
 
             //handle vector
-            Ticket* product = new Ticket(info.at(0), info.at(1),info.at(2), info.at(3),info.at(4), info.at(5),info.at(6), info.at(7),info.at(8), info.at(9), info.at(10),info.at(11), info.at(12), info.at(13), info.at(14), info.at(15), info.at(16));
+            Ticket* product = new Ticket(info.at(0), info.at(1),info.at(2), info.at(3),info.at(4),
+                                         info.at(5),info.at(6), info.at(7),info.at(8), info.at(9), 
+                                         info.at(10),info.at(11), info.at(12), info.at(13), 
+                                         info.at(14), info.at(15), info.at(16));
+
             ticketList.push_back(product);
 
         } //end while
@@ -281,11 +297,11 @@ void MainWindow::searchProduct()
     }
 }
 
-void MainWindow::handleThemeSpyBot()
+void MainWindow::handleThemeDarkmode()
 {
 
     //open qss file
-    QFile file("D:/Users/270113892/Desktop/BitTicketMain/Darkmode.qss");
+    QFile file(":/new/res/images/Darkmode.qss");
     file.open(QFile::ReadOnly);
     QString styleSheet { QLatin1String(file.readAll()) };
 
@@ -297,10 +313,10 @@ void MainWindow::handleThemeSpyBot()
 
 }
 
-void MainWindow::handleThemeGravira()
+void MainWindow::handleThemeLightmode()
 {
     //open qss file
-    QFile file("D:/Users/270113892/Desktop/BitTicketMain/LightMode.qss");
+    QFile file(":/new/res/images/Lightmode.qss");
     file.open(QFile::ReadOnly);
     QString styleSheet { QLatin1String(file.readAll()) };
 
@@ -309,7 +325,6 @@ void MainWindow::handleThemeGravira()
 
     //run
     show();
-
 }
 
 void MainWindow::on_actionAbout_Qt_triggered()
@@ -326,7 +341,7 @@ void MainWindow::on_actionAbout_triggered()
                        "C++\n"
                        "Qt\n\n"
                        "Developers:\n"
-                       "Alex Hughes(024)\n"
-                       "Mark Pepere (002)");
+                       "Alex Hughes\n"
+                       "Mark Pepere");
 
 }

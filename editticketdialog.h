@@ -37,7 +37,6 @@ private:
     QStringList agent;
     QStringList status;
     QStringList incstatus;
-
     QString imageFilePath;
 };
 

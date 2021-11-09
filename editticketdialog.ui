@@ -28,9 +28,7 @@
    </property>
    <property name="font">
     <font>
-     <family>Uni Sans Heavy CAPS</family>
      <pointsize>14</pointsize>
-     <weight>75</weight>
      <bold>true</bold>
      <underline>true</underline>
     </font>
@@ -53,7 +51,6 @@
    </property>
    <property name="font">
     <font>
-     <weight>75</weight>
      <bold>true</bold>
     </font>
    </property>
@@ -74,7 +71,6 @@
       <widget class="QLabel" name="lb_incident_cat">
        <property name="font">
         <font>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -87,7 +83,6 @@
       <widget class="QLabel" name="lb_tags">
        <property name="font">
         <font>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -100,7 +95,6 @@
       <widget class="QLabel" name="lb_impact">
        <property name="font">
         <font>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -113,7 +107,6 @@
       <widget class="QLabel" name="lb_urgency">
        <property name="font">
         <font>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -126,7 +119,6 @@
       <widget class="QLabel" name="lb_priority">
        <property name="font">
         <font>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -139,7 +131,6 @@
       <widget class="QLabel" name="lb_timestamp">
        <property name="font">
         <font>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -152,7 +143,6 @@
       <widget class="QLabel" name="lb_level_support">
        <property name="font">
         <font>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -165,7 +155,6 @@
       <widget class="QLabel" name="label_4">
        <property name="font">
         <font>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -190,7 +179,6 @@
       <widget class="QComboBox" name="comboBox_5">
        <property name="font">
         <font>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -200,7 +188,6 @@
       <widget class="QLineEdit" name="lineEdit_Tag">
        <property name="font">
         <font>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -210,7 +197,6 @@
       <widget class="QComboBox" name="comboBox_6">
        <property name="font">
         <font>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -220,7 +206,6 @@
       <widget class="QComboBox" name="comboBox_3">
        <property name="font">
         <font>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -230,7 +215,6 @@
       <widget class="QComboBox" name="comboBox_2">
        <property name="font">
         <font>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -240,7 +224,6 @@
       <widget class="QDateTimeEdit" name="dateTimeEdit">
        <property name="font">
         <font>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -253,7 +236,6 @@
       <widget class="QComboBox" name="comboBox">
        <property name="font">
         <font>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -263,7 +245,6 @@
       <widget class="QLineEdit" name="lineEditAgent">
        <property name="font">
         <font>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -307,7 +288,6 @@
     </property>
     <property name="font">
      <font>
-      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -326,7 +306,6 @@
     </property>
     <property name="font">
      <font>
-      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -345,7 +324,6 @@
     </property>
     <property name="font">
      <font>
-      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -365,7 +343,6 @@
    </property>
    <property name="font">
     <font>
-     <weight>75</weight>
      <bold>true</bold>
     </font>
    </property>
@@ -386,7 +363,6 @@
       <widget class="QLabel" name="lb_name">
        <property name="font">
         <font>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -399,7 +375,6 @@
       <widget class="QLabel" name="lb_email">
        <property name="font">
         <font>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -412,7 +387,6 @@
       <widget class="QLabel" name="lb_phone">
        <property name="font">
         <font>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -437,7 +411,6 @@
       <widget class="QLineEdit" name="lineEdit_10">
        <property name="font">
         <font>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -447,7 +420,6 @@
       <widget class="QLineEdit" name="lineEdit_11">
        <property name="font">
         <font>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -457,7 +429,6 @@
       <widget class="QLineEdit" name="lineEdit_12">
        <property name="font">
         <font>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -477,7 +448,6 @@
    </property>
    <property name="font">
     <font>
-     <weight>75</weight>
      <bold>true</bold>
     </font>
    </property>
@@ -512,7 +482,6 @@
    </property>
    <property name="font">
     <font>
-     <weight>75</weight>
      <bold>true</bold>
     </font>
    </property>
@@ -530,7 +499,6 @@
     </property>
     <property name="font">
      <font>
-      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -559,7 +527,6 @@
     </property>
     <property name="font">
      <font>
-      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -588,7 +555,6 @@
     </property>
     <property name="font">
      <font>
-      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -610,9 +576,9 @@
   <widget class="QLabel" name="lblImage">
    <property name="geometry">
     <rect>
-     <x>540</x>
+     <x>560</x>
      <y>200</y>
-     <width>221</width>
+     <width>201</width>
      <height>161</height>
     </rect>
    </property>
@@ -634,7 +600,6 @@
    </property>
    <property name="font">
     <font>
-     <weight>75</weight>
      <bold>true</bold>
     </font>
    </property>

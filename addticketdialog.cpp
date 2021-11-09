@@ -5,8 +5,10 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QRandomGenerator>
+#include <QTextStream>
 #include <QDate>
 #include <QTime>
+#include <QListView>
 
 addticketdialog::addticketdialog(Ticket*& newTicket, QWidget *parent) : QDialog(parent), ui(new Ui::addticketdialog)
 {
@@ -20,7 +22,7 @@ addticketdialog::addticketdialog(Ticket*& newTicket, QWidget *parent) : QDialog(
     QDir pathDir("./images");
     if(!pathDir.exists())
     {
-        //create it!
+        //create it
         QDir().mkdir("./images");
     }
 
@@ -46,6 +48,7 @@ addticketdialog::addticketdialog(Ticket*& newTicket, QWidget *parent) : QDialog(
     incident.push_back("");
     ui->comboBox_7->addItems(incident);
     ui->comboBox_7->setCurrentIndex(8);
+    qobject_cast<QListView *>(ui->comboBox_7->view())->setRowHidden(8, true);
 
     //population of combo box for Impact
     impact.push_back("Low");
@@ -54,6 +57,7 @@ addticketdialog::addticketdialog(Ticket*& newTicket, QWidget *parent) : QDialog(
     impact.push_back("");
     ui->comboBox_9->addItems(impact);
     ui->comboBox_9->setCurrentIndex(3);
+    qobject_cast<QListView *>(ui->comboBox_9->view())->setRowHidden(3, true);
 
     //population of combo box for Urgency
     urgency.push_back("Low");
@@ -62,7 +66,7 @@ addticketdialog::addticketdialog(Ticket*& newTicket, QWidget *parent) : QDialog(
     urgency.push_back("");
     ui->comboBox_10->addItems(urgency);
     ui->comboBox_10->setCurrentIndex(3);
-
+    qobject_cast<QListView *>(ui->comboBox_10->view())->setRowHidden(3, true);
 
     //population of combo box for Priority
     priority.push_back("None");
@@ -73,6 +77,7 @@ addticketdialog::addticketdialog(Ticket*& newTicket, QWidget *parent) : QDialog(
     priority.push_back("");
     ui->comboBox_11->addItems(priority);
     ui->comboBox_11->setCurrentIndex(5);
+    qobject_cast<QListView *>(ui->comboBox_11->view())->setRowHidden(5, true);
 
     //population of combo box for Level of support
     level.push_back("Tier 1");
@@ -81,6 +86,7 @@ addticketdialog::addticketdialog(Ticket*& newTicket, QWidget *parent) : QDialog(
     level.push_back("");
     ui->comboBox_12->addItems(level);
     ui->comboBox_12->setCurrentIndex(3);
+    qobject_cast<QListView *>(ui->comboBox_12->view())->setRowHidden(3, true);
 
     //Ticket status
     status.push_back("Closed");
@@ -88,6 +94,7 @@ addticketdialog::addticketdialog(Ticket*& newTicket, QWidget *parent) : QDialog(
     status.push_back("");
     ui->comboBox_TS->addItems(status);
     ui->comboBox_TS->setCurrentIndex(2);
+    qobject_cast<QListView *>(ui->comboBox_TS->view())->setRowHidden(2, true);
 
     //Incident Status
     incstatus.push_back("Solved");
@@ -96,6 +103,7 @@ addticketdialog::addticketdialog(Ticket*& newTicket, QWidget *parent) : QDialog(
     incstatus.push_back("");
     ui->comboBox_IS->addItems(incstatus);
     ui->comboBox_IS->setCurrentIndex(3);
+    qobject_cast<QListView *>(ui->comboBox_IS->view())->setRowHidden(3, true);
 
 }
 
@@ -124,8 +132,64 @@ void addticketdialog::confirmAdd()
     QString status = ui->comboBox_TS->currentText();
     QString incstatus = ui->comboBox_IS->currentText();
 
+    if(rating.isEmpty())
+    {
+        QFile outputFile("Queries.txt");
+        outputFile.open(QIODevice::Append | QIODevice::Text);
+        QTextStream out(&outputFile);
+
+            out << id <<",";
+            out << incident <<",";
+            out << tag<<",";
+            out << impact <<",";
+            out << urgency <<",";
+            out << priority<<",";
+            out << time<<",";
+            out << symptoms<<",";
+            out << level<<",";
+            out << rating<<",";
+            out << name<<",";
+            out << email<<",";
+            out << phone<<",";
+            out << agent<<",";
+            out << status<<",";
+            out << incstatus<<"\n";
+    }
+
+    if(!(agent.isEmpty()))
+    {
+        QFile outputFile("Assignment.txt");
+        outputFile.open(QIODevice::Append | QIODevice::Text);
+        QTextStream out(&outputFile);
+
+            out << agent<<",";
+            out << id <<",";
+            out << incident <<",";
+            out << tag<<",";
+            out << time<<",";
+            out << symptoms<<"\n";
+
+    }
+
+    if(!(level.isEmpty()))
+    {
+        QFile outputFile("Support.txt");
+        outputFile.open(QIODevice::Append | QIODevice::Text);
+        QTextStream out(&outputFile);
+
+            out << level<<",";
+            out << agent<<",";
+            out << id <<",";
+            out << incident <<",";
+            out << tag<<",";
+            out << time<<",";
+            out << symptoms<<"\n";
+
+    }
+
     //checking conditions
-    if (id.isEmpty() || incident.isEmpty() || tag.isEmpty() || impact.isEmpty() || urgency.isEmpty() || priority.isEmpty() || level.isEmpty())
+    if (id.isEmpty() || incident.isEmpty() || tag.isEmpty() || impact.isEmpty() || 
+        urgency.isEmpty() || priority.isEmpty() || level.isEmpty())
     {
         //error message for the checking conditions are not met
         QString message(tr("All information is required, Please complete the form to proceed."));
@@ -139,6 +203,7 @@ void addticketdialog::confirmAdd()
     }
 
 }
+
 void addticketdialog::loadItemImage()
 {
     QString filename;
@@ -154,5 +219,4 @@ void addticketdialog::loadItemImage()
         ui->lblImage->setScaledContents(true);
         imageFilePath = "./images/" + shortName;
     }
-
 } //end load item image

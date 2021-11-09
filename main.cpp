@@ -9,13 +9,10 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     MainWindow m;
 
-    QFile file("D:/Users/270113892/Desktop/BitTicketMain/LightMode.qss");
+    QFile file(":/new/res/images/Darkmode.qss");
     file.open(QFile::ReadOnly);
     QString styleSheet { QLatin1String(file.readAll()) };
     a.setStyleSheet(styleSheet);
-    m.show();
-
-    m.hide();
 
     QMessageBox msgBox;
     LoginDialog secdialog;

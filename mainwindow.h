@@ -27,10 +27,10 @@ public:
     void handleMenuExit();
     void handleSaveTickets();
     void handleLoadTickets();
-    void handleTicketStats();
     void searchProduct();
-    void handleThemeSpyBot();
-    void handleThemeGravira();
+    void handleThemeDarkmode();
+    void handleThemeLightmode();
+
 private slots:
     void on_actionAbout_Qt_triggered();
     void on_actionAbout_triggered();
@@ -39,7 +39,6 @@ private:
     Ui::MainWindow *ui;
     QVector<Ticket*> ticketList;
     QWidget * QMainWindow;
-    //QPropertyAnimation *animation;
 
 };
 #endif // MAINWINDOW_H
